@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #1e1e1e;
+            color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        h1,
+        input,
+        button {
+            margin-bottom: 15px;
+        }
+
+        input {
+            padding: 12px 130px 12px 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 15px;
+        }
+
+        input:focus {
+            border: none;
+            outline: none;
+        }
+
+        button {
+            background-color: #ff6b00;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+        .imgBox {
+            background-color: #1e1e1e;
+            padding: 10px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .imgBox img {
+            width: 150px;
+            height: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>QR Code Generator</h1>
+    <input type="text" placeholder="Paste your link here..." id="input">
+    <button onclick="generateCode()">Generate</button>
+    <div class="imgBox" id="imgBox">
+        <img src="" alt="QR Code" id="img">
+    </div>
+
+    <script>
+        const input = document.querySelector("#input");
+        const imgBox = document.querySelector("#imgBox");
+        const img = document.querySelector("#img");
+
+        function generateCode() {
+            const value = input.value.trim();
+            if (value === "") return;
+
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(value)}&color=ffffff&bgcolor=1e1e1e`;
+            img.src = qrUrl;
+            img.onload = () => {
+                imgBox.style.display = "block";
+            }
+        }
+    </script>
+</body>
+
+</html>
